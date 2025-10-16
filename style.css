@@ -1,0 +1,70 @@
+/* Focus styles for accessibility */
+button:focus,
+a:focus,
+input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .header,
+    .cart-sidebar,
+    .popup-overlay,
+    .thank-you-message {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}
+
+/* =========================================================
+   MEZE KARTLARI - Yakınlaştırılmış Görsel & Hareket Kapalı
+   ========================================================= */
+:root {
+    /* İsteğe göre oynayabileceğin değişkenler */
+    --card-zoom: 1.22;     /* Yakınlık oranı (1.15–1.30 arası) */
+    --card-focus-x: 85%;   /* Sağ odak (imza sağ altta ise) */
+    --card-focus-y: 80%;   /* Alt odak */
+}
+
+/* Kart hover'da hareket etmesin */
+.meze-card,
+.meze-card:hover {
+    transform: none !important;
+    box-shadow: var(--shadow) !important;
+}
+
+/* Görselleri daha yakın göster, sağ-sol boşluk kaybolsun */
+.meze-image {
+    height: 260px; /* İsteğe bağlı; 250px idi */
+    overflow: hidden;
+}
+
+.meze-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    transform: scale(var(--card-zoom));
+    transform-origin: var(--card-focus-x) var(--card-focus-y);
+    transition: none !important; /* Mobilde titreme olmasın */
+}
+
+/* Hover'da ekstra zoom kapalı */
+.meze-card:hover .meze-image img {
+    transform: scale(var(--card-zoom)) !important;
+}
+
+/* Mobil cihazlarda güvenlik için animasyon tamamen kapalı */
+@media (max-width: 768px) {
+    .meze-card,
+    .meze-card:hover {
+        transform: none !important;
+    }
+    .meze-image img {
+        transition: none !important;
+    }
+}

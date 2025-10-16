@@ -1,0 +1,3371 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bonvera - Lezzetli Mezeler ve Ev Yemekleri</title>
+    <meta name="description" content="Bonvera - Taze, lezzetli mezeler, içli köfte ve ev yemekleri. Günlük hazırlık, kaliteli malzeme, usta işi lezzet.">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1f4d8f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Bonvera">
+    <meta name="msapplication-TileColor" content="#1f4d8f">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- iOS PWA Optimizations -->
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-orientations" content="portrait">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+    
+    <!-- HTTPS Enforcement -->
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍🍳</text></svg>">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+    
+    <!-- iOS Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="57x57" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="60x60" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="72x72" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="76x76" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="114x114" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="120x120" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="144x144" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="152x152" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="167x167" href="pwklogo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="pwklogo.jpg">
+    <style>
+        :root {
+            --bonvera-blue: #1f4d8f;
+            --ink: #1b1e24;
+            --muted: #6b7280;
+            --light-gray: #f8fafc;
+            --border-gray: #e5e7eb;
+            --white: #f8f9fa; /* Kırık beyaz */
+            --shadow: 0 1px 2px rgba(0,0,0,.04);
+            --shadow-hover: 0 4px 6px rgba(0,0,0,.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--white);
+            scroll-behavior: smooth;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border-gray);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: box-shadow 0.3s ease;
+            overflow: visible; /* Logo taşabilir */
+            padding: 16px 0; /* Global standart boyut */
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px; /* Global standart boyut */
+            overflow: visible; /* Logo taşabilir */
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-left a {
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-left a:hover {
+            color: var(--bonvera-blue);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            margin: -50px 0; /* Logo menü bar'dan taşabilir */
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .logo a {
+            display: block;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo a:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            width: 400px; /* 2x büyütüldü */
+            height: 400px;
+            object-fit: contain;
+            background: transparent; /* şeffaf arka plan */
+            padding: 0;
+            box-shadow: none; /* gölge kaldırıldı */
+            border: none; /* çerçeve yok */
+        }
+
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--bonvera-blue);
+        }
+
+        .cart-btn {
+            position: relative;
+            background: var(--bonvera-blue);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cart-btn:hover {
+            background: #1a4480;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc2626;
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .mobile-nav {
+            display: none;
+            background: var(--white);
+            border-top: 1px solid var(--border-gray);
+            padding: 16px 20px;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 12px 0;
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 80vh; /* Daha geniş slide */
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            background-color: #f8f9fa;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🍽️</text></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 60px 60px;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 0 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-top: 100px;
+        }
+
+        .slide-content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .slide-content p {
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        .hero-btn {
+            background: var(--bonvera-blue);
+            color: var(--white);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .hero-btn:hover {
+            background: #1a4480;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 3;
+        }
+
+        .slider-btn {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .slider-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 3;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .dot.active {
+            background: var(--white);
+            transform: scale(1.2);
+        }
+
+        /* Sections */
+        section {
+            padding: 48px 0;
+            scroll-margin-top: 80px;
+        }
+
+        section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--ink);
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: none;
+        }
+
+        .product-card:hover {
+            transform: none;
+            box-shadow: var(--shadow);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px; /* Daha büyük görsel */
+            object-fit: cover;
+            object-position: 30% 10%; /* Sola kaydırıldı */
+            border-radius: 12px;
+            margin-bottom: 16px;
+            background-color: #f8f9fa;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🍽️</text></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 60px 60px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-image:hover {
+            opacity: 0.9;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .product-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .quantity-btn {
+            background: var(--white);
+            border: 2px solid var(--bonvera-blue);
+            color: var(--bonvera-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .quantity-btn:hover {
+            background: var(--bonvera-blue);
+            color: var(--white);
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quantity-display {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--white);
+            border-left: 1px solid var(--border-gray);
+            box-shadow: -4px 0 12px rgba(0,0,0,.1);
+            transition: right 0.3s ease;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--muted);
+        }
+
+        .cart-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .cart-item-category {
+            font-size: 12px;
+            color: var(--muted);
+            background: var(--light-gray);
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cart-item-quantity {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .cart-summary {
+            padding: 24px;
+            border-top: 1px solid var(--border-gray);
+            background: var(--light-gray);
+        }
+
+        .cart-totals {
+            margin-bottom: 20px;
+        }
+
+        .cart-total-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .cart-total-item:last-child {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--ink);
+            border-top: 1px solid var(--border-gray);
+            padding-top: 12px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--bonvera-blue);
+            color: var(--white);
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #1a4480;
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--muted);
+        }
+
+        .cart-empty h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--ink);
+        }
+
+        .cart-empty p {
+            margin-bottom: 24px;
+        }
+
+        .cart-empty-btn {
+            background: var(--bonvera-blue);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        /* Mobile Cart Bar */
+        .mobile-cart-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bonvera-blue);
+            color: var(--white);
+            padding: 16px 20px;
+            z-index: 150;
+        }
+
+        .mobile-cart-bar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-cart-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-cart-btn {
+            background: var(--white);
+            color: var(--bonvera-blue);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 300;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--muted);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-gray);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--bonvera-blue);
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        .location-group {
+            display: flex;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .location-group input {
+            flex: 1;
+        }
+
+        .location-btn {
+            background: var(--bonvera-blue);
+            color: var(--white);
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--ink);
+            border: 2px solid var(--border-gray);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--muted);
+        }
+
+        .btn-primary {
+            background: var(--bonvera-blue);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1a4480;
+        }
+
+        /* Thank You Message */
+        .thank-you {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 400;
+        }
+
+        .thank-you.open {
+            display: flex;
+        }
+
+        .thank-you-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 48px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .thank-you-icon {
+            font-size: 48px;
+            color: #10b981;
+            margin-bottom: 16px;
+        }
+
+        .thank-you h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .thank-you p {
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .thank-you-btn {
+            background: var(--bonvera-blue);
+            color: var(--white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Contact Popup */
+        .contact-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+        }
+
+        .contact-popup.open {
+            display: flex;
+        }
+
+        .contact-popup-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .contact-popup h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 24px;
+        }
+
+        .contact-options {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            border: 2px solid var(--border-gray);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--ink);
+        }
+
+        .contact-option:hover {
+            border-color: var(--bonvera-blue);
+            background: var(--light-gray);
+        }
+
+        .contact-option-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .contact-option-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .contact-option-detail {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .contact-option-icon {
+            font-size: 24px;
+        }
+
+        /* Legal Popup */
+        .legal-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+        }
+
+        .legal-popup.open {
+            display: flex;
+        }
+
+        .legal-popup-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .legal-popup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .legal-popup h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .legal-popup-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--muted);
+        }
+
+        .legal-popup-body h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        .legal-popup-body p, .legal-popup-body li {
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .legal-popup-body ul {
+            margin-left: 20px;
+        }
+
+        /* Order Confirmation Popup */
+        .order-confirmation-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 600;
+        }
+
+        .order-confirmation-popup.open {
+            display: flex;
+        }
+
+        .order-confirmation-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .order-confirmation-icon {
+            font-size: 48px;
+            color: var(--bonvera-blue);
+            margin-bottom: 16px;
+        }
+
+        .order-confirmation-popup h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
+
+        .order-confirmation-popup p {
+            color: var(--muted);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .order-confirmation-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .order-confirmation-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .order-confirmation-btn-cancel {
+            background: var(--white);
+            color: var(--ink);
+            border: 2px solid var(--border-gray);
+        }
+
+        .order-confirmation-btn-cancel:hover {
+            background: var(--light-gray);
+        }
+
+        .order-confirmation-btn-confirm {
+            background: var(--bonvera-blue);
+            color: var(--white);
+        }
+
+        .order-confirmation-btn-confirm:hover {
+            background: #1a4480;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .order-confirmation-buttons {
+                flex-direction: column;
+            }
+            
+            .order-confirmation-btn {
+                width: 100%;
+            }
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid var(--border-gray);
+            box-shadow: 0 -4px 12px rgba(0,0,0,.1);
+            padding: 20px;
+            z-index: 600;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-consent.show {
+            transform: translateY(0);
+        }
+
+        .cookie-consent-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .cookie-consent-text {
+            flex: 1;
+        }
+
+        .cookie-consent-text h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .cookie-consent-text p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .cookie-consent-buttons {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-btn-accept {
+            background: var(--bonvera-blue);
+            color: var(--white);
+        }
+
+        .cookie-btn-accept:hover {
+            background: #1a4480;
+        }
+
+        .cookie-btn-decline {
+            background: var(--white);
+            color: var(--ink);
+            border: 1px solid var(--border-gray);
+        }
+
+        .cookie-btn-decline:hover {
+            background: var(--light-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cookie-consent-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+            
+            .cookie-consent-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .cookie-btn {
+                flex: 1;
+                max-width: 120px;
+            }
+        }
+
+        /* iOS PWA Optimizations */
+        @media screen and (max-width: 768px) {
+            body {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            /* iOS Safe Area */
+            .hero, .container {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+            
+            /* iOS Status Bar */
+            .hero {
+                padding-top: env(safe-area-inset-top);
+            }
+        }
+        
+        /* PWA Install Prompt */
+        .pwa-install-prompt {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bonvera-blue);
+            color: var(--white);
+            padding: 16px 20px;
+            z-index: 700;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            display: none;
+        }
+
+        .pwa-install-prompt.show {
+            transform: translateY(0);
+            display: block;
+        }
+
+        .pwa-install-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pwa-install-text {
+            flex: 1;
+        }
+
+        .pwa-install-text h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .pwa-install-text p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .pwa-install-buttons {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .pwa-install-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .pwa-install-btn-install {
+            background: var(--white);
+            color: var(--bonvera-blue);
+        }
+
+        .pwa-install-btn-install:hover {
+            background: var(--light-gray);
+        }
+
+        .pwa-install-btn-dismiss {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .pwa-install-btn-dismiss:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pwa-install-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .pwa-install-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .pwa-install-btn {
+                flex: 1;
+                max-width: 120px;
+            }
+        }
+
+        /* Order Summary */
+        .order-summary-section {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .order-summary-section h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .order-items {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-item-name {
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .order-item-category {
+            font-size: 12px;
+            color: var(--muted);
+            background: var(--white);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .order-item-quantity {
+            font-weight: 600;
+            color: var(--bonvera-blue);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: var(--white);
+            padding: 48px 0 24px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-contact {
+            margin-bottom: 24px;
+        }
+
+        .footer-contact h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 8px;
+            color: var(--white);
+            opacity: 0.9;
+        }
+
+        .footer-contact a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .footer-content p {
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-left,
+            .nav-right .nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-nav {
+                display: none;
+            }
+
+            .mobile-nav.active {
+                display: block;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .mobile-cart-bar {
+                display: block;
+            }
+
+            .hero {
+                height: 60vh;
+                min-height: 400px;
+            }
+
+            .logo img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .slide-content h1 {
+                font-size: 32px;
+            }
+
+            .slide-content p {
+                font-size: 16px;
+            }
+
+            .slider-controls {
+                padding: 0 10px;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .slider-dots {
+                bottom: 20px;
+            }
+
+            section {
+                padding: 32px 0;
+            }
+
+            section h2 {
+                font-size: 28px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .modal {
+                padding: 24px;
+                margin: 20px;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .location-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .header-content {
+                padding: 12px 16px;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .product-card {
+                padding: 16px;
+            }
+
+            .modal {
+                padding: 20px;
+                margin: 16px;
+            }
+        }
+
+        /* Coming Soon Section */
+        .coming-soon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            margin-top: 32px;
+        }
+
+        .coming-soon-content {
+            text-align: center;
+            padding: 40px;
+            background: var(--light-gray);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            max-width: 500px;
+        }
+
+        .coming-soon-content h3 {
+            color: var(--bonvera-blue);
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .coming-soon-content p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        .coming-soon-icon {
+            font-size: 3rem;
+            opacity: 0.7;
+        }
+    
+/* --- About section (profesyonel kart tasarımı) --- */
+.about {
+  background: var(--white);
+  border-top: 1px solid var(--border-gray);
+  padding: 48px 0;
+}
+
+.about .container { 
+  max-width: 1200px; 
+}
+
+.about h1 {
+  font-size: 32px; 
+  font-weight: 700; 
+  color: var(--ink); 
+  text-align: center; 
+  margin-bottom: 32px;
+}
+
+.about-intro {
+  text-align: center;
+  margin-bottom: 48px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-intro p {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.about-card {
+  background: var(--white);
+  border: 1px solid var(--border-gray);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.about-card-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.about-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.about-card p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.about-contact {
+  text-align: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-gray);
+}
+
+.about-contact h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.about-contact p {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.about-contact a {
+  color: var(--bonvera-blue);
+  text-decoration: none;
+}
+
+.about-contact a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-features {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .about-card {
+    padding: 24px 20px;
+  }
+  
+  .about-card-icon {
+    font-size: 40px;
+  }
+  
+  .about h1 {
+    font-size: 28px;
+  }
+}
+
+/* --- Neden Bonvera section (kart tasarımı) --- */
+.why-bonvera-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.why-bonvera-card {
+  background: var(--white);
+  border: 1px solid var(--border-gray);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.why-bonvera-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.why-bonvera-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.why-bonvera-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.why-bonvera-card p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .why-bonvera-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .why-bonvera-card {
+    padding: 24px 20px;
+  }
+  
+  .why-bonvera-icon {
+    font-size: 40px;
+  }
+}
+
+</style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <!-- Sol Nav -->
+            <nav class="nav-left" role="navigation" aria-label="Sol menü">
+                <a href="#mezeler">Mezeler</a>
+                <a href="#icli-kofte">İçli Köfte</a>
+                <a href="#ev-yemekleri">Sarma</a>
+            </nav>
+            
+            <!-- Logo Ortada -->
+            <div class="logo">
+                <a href="#hero" onclick="scrollToTop()">
+                <img src="logo.png" alt="Bonvera logosu" loading="lazy">
+                </a>
+            </div>
+            
+            <!-- Sağ Nav -->
+            <div class="nav-right">
+                <nav class="nav" role="navigation" aria-label="Sağ menü">
+                    <a href="#hakkimizda">Hakkında</a>
+                    <a href="#" onclick="openContactPopup()">İletişim</a>
+            </nav>
+                <button class="cart-btn" onclick="toggleCart()" aria-label="Sepeti aç/kapat">
+                    Sepet <span class="cart-badge" id="cartBadge" aria-live="polite">0</span>
+                </button>
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Mobil menüyü aç/kapat">
+                ☰
+            </button>
+        </div>
+        
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#mezeler" onclick="closeMobileMenu()">Mezeler</a>
+            <a href="#icli-kofte" onclick="closeMobileMenu()">İçli Köfte</a>
+            <a href="#sarma" onclick="closeMobileMenu()">Sarma</a>
+            <a href="#hakkimizda" onclick="closeMobileMenu()">Hakkında</a>
+            <a href="#" onclick="closeMobileMenu(); openContactPopup();">İletişim</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+<section class="hero" id="hero">
+  <div class="hero-slider">
+    <div class="slider-container">
+      <!-- Slide 1 -->
+      <div class="slide active">
+        <img src="slide/slide1.jpeg" alt="Taze malzemelerle hazırlanan mezeler" loading="lazy">
+        <div class="slide-content">
+          <h1 id="slide1-title">Taze Cacık</h1>
+          <p id="slide1-desc">Yoğurt, salatalık, sarımsak ve nane ile hazırlanan geleneksel cacığımız. Serinletici ve ferahlatıcı lezzet.</p>
+          <a href="#mezeler" class="hero-btn" id="slide1-btn">Mezeler</a>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide">
+        <img src="slide/slide2.jpeg" alt="Geleneksel tariflerle hazırlanan yemekler" loading="lazy">
+        <div class="slide-content">
+          <h1 id="slide2-title">Acılı Ezme</h1>
+          <p id="slide2-desc">Domates, biber, soğan ve baharatlarla hazırlanan acılı ezmemiz. Geleneksel tarifimizle hazırlanan özel lezzet.</p>
+          <a href="#mezeler" class="hero-btn" id="slide2-btn">Mezeler</a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide">
+        <img src="slide/slide3.jpeg" alt="İçli köfte ve özel lezzetler" loading="lazy">
+        <div class="slide-content">
+          <h1 id="slide3-title">Acılı Humus</h1>
+          <p id="slide3-desc">Nohut, tahin, limon ve sarımsakla hazırlanan acılı humusumuz. Kremamsı kıvamda, baharatlı lezzet.</p>
+          <a href="#mezeler" class="hero-btn" id="slide3-btn">Mezeler</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Slider controls -->
+    <div class="slider-controls">
+      <button class="slider-btn prev" onclick="changeSlide(-1)" aria-label="Önceki slide">‹</button>
+      <button class="slider-btn next" onclick="changeSlide(1)" aria-label="Sonraki slide">›</button>
+    </div>
+
+    <!-- Dots -->
+    <div class="slider-dots">
+      <span class="dot active" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Mezeler Section -->
+    <section id="mezeler">
+        <div class="container">
+            <h2>Mezelerimiz</h2>
+            <div class="products-grid" id="mezelerGrid">
+                <!-- Mezeler buraya JavaScript ile yüklenecek -->
+                    </div>
+                        </div>
+    </section>
+
+    <!-- İçli Köfte Section -->
+    <section id="icli-kofte">
+        <div class="container">
+            <h2>İçli Köfte</h2>
+            <div class="products-grid" id="icliKofteGrid">
+                <!-- İçli köfte ürünleri buraya JavaScript ile yüklenecek -->
+                    </div>
+                </div>
+    </section>
+
+    <!-- Sarma Section -->
+    <section id="ev-yemekleri">
+        <div class="container">
+            <h2>Sarma</h2>
+            <div class="products-grid" id="sarmaGrid">
+                <!-- Sarma ürünleri buraya JavaScript ile yüklenecek -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Neden Biz Section -->
+    <section id="neden">
+        <div class="container">
+            <h2>Neden Bonvera?</h2>
+            <div class="why-bonvera-grid">
+                <div class="why-bonvera-card">
+                    <div class="why-bonvera-icon">🌅</div>
+                    <h3>Günlük Üretim</h3>
+                    <p>Her gün taze malzemelerle hazırlanan ürünlerimiz, lezzet ve kaliteyi garanti eder.</p>
+                    </div>
+                <div class="why-bonvera-card">
+                    <div class="why-bonvera-icon">🌿</div>
+                    <h3>Kaliteli Malzeme</h3>
+                    <p>Doğal ve organik malzemeler kullanarak sağlıklı ve lezzetli ürünler sunuyoruz.</p>
+                </div>
+                <div class="why-bonvera-card">
+                    <div class="why-bonvera-icon">👨‍🍳</div>
+                    <h3>Usta İşi Lezzet</h3>
+                    <p>Geleneksel tariflerimiz ve uzman ekibimizle her ürünümüzde mükemmel lezzet.</p>
+                    </div>
+                        </div>
+                    </div>
+    </section>
+
+    <!-- Footer -->
+    
+<!-- Hakkımızda -->
+<section id="hakkimizda" class="about">
+  <div class="container">
+    <h1>Hakkımızda</h1>
+    
+    <div class="about-intro">
+    <p><strong>Bonvera</strong>, mezeleri ve ev yemeklerini günlük taze üretim anlayışıyla sizlere ulaştıran,
+    sade ve hızlı bir sipariş deneyimi sunmak için kurulmuş kapalı devre bir mutfak-teknoloji girişimidir.</p>
+    </div>
+
+    <div class="about-features">
+      <div class="about-card">
+        <div class="about-card-icon">🏛️</div>
+        <h3>Strasbourg'da Günlük Üretim</h3>
+        <p>Lezzetlerimizin kalbi, Avrupa'nın çok kültürlü gastronomi merkezlerinden Strasbourg'da atıyor. Her bir ürünümüz günlük ve taze olarak hazırlanır.</p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-icon">👨‍🍳</div>
+        <h3>Türk Mutfağının Gizli Tarifleri</h3>
+        <p>Nesilden nesile aktarılan Türk mutfağının gizli tarifleri ile hazırladığımız mezelerimiz, geleneksel lezzetleri modern hijyen standartlarıyla buluşturur.</p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-card-icon">🥬</div>
+        <h3>Taze Sebzeler ve Kaliteli Malzemeler</h3>
+        <p>Üretimimizde taze sebzeler ve doğal malzemeler kullanırız. Hiçbir koruyucu madde kullanmadan, sadece doğal yöntemlerle hazırlanan ürünlerimiz.</p>
+  </div>
+
+      <div class="about-card">
+        <div class="about-card-icon">⚡</div>
+        <h3>Günlük ve Taze Üretim</h3>
+        <p>Üretimde "aynı gün hazırlık, aynı gün servis" prensibini izleriz. Her ürünümüz Strasbourg'daki mutfağımızda günlük olarak hazırlanır.</p>
+  </div>
+    </div>
+
+  </div>
+</section>
+
+
+<footer class="footer" id="iletisim">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-contact">
+                    <h3>İletişim</h3>
+                    <p><strong>Konum:</strong> Strasbourg, France</p>
+                    <p><strong>E-posta:</strong> <a href="#" onclick="openContactPopup()">bonvera.food@gmail.com</a></p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" onclick="openLegalPopup('kvkk')">KVKK</a>
+                    <a href="#" onclick="openLegalPopup('gizlilik')">Gizlilik Politikası</a>
+                </div>
+                <p><em>Sadece anlaşmalı restoranlar içindir (pilot).</em></p>
+                <p>&copy; <span id="currentYear"></span> Bonvera - Tüm hakları saklıdır</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Sepet</h3>
+            <button class="cart-close" onclick="closeCart()" aria-label="Sepeti kapat">&times;</button>
+        </div>
+        <div class="cart-content" id="cartContent">
+            <!-- Sepet içeriği buraya JavaScript ile yüklenecek -->
+            </div>
+        <div class="cart-summary">
+            <div class="cart-totals" id="cartTotals">
+                <!-- Sepet toplamları buraya JavaScript ile yüklenecek -->
+            </div>
+            <button class="checkout-btn" onclick="openCheckout()" id="checkoutBtn" disabled>
+                Siparişi Tamamla
+            </button>
+            </div>
+        </div>
+
+    <!-- Mobile Cart Bar -->
+    <div class="mobile-cart-bar" id="mobileCartBar">
+        <div class="mobile-cart-bar-content">
+            <div class="mobile-cart-info">
+                <span>Sepet</span>
+                <span id="mobileCartCount">(0)</span>
+            </div>
+            <button class="mobile-cart-btn" onclick="toggleCart()">
+                Görüntüle
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <h3 id="modalTitle">Sipariş Bilgileri</h3>
+                <button class="modal-close" onclick="closeCheckout()" aria-label="Modalı kapat">&times;</button>
+            </div>
+            <form id="checkoutForm" action="https://formspree.io/f/xdkwpdko" method="POST">
+                <!-- Sepet Özeti -->
+                <div class="order-summary-section" id="orderSummarySection">
+                    <h4>Sipariş Özeti</h4>
+                    <div class="order-items" id="orderItems">
+                        <!-- Sepet ürünleri buraya JavaScript ile yüklenecek -->
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyName">Firma Adı <span class="required">*</span></label>
+                    <input type="text" id="companyName" name="companyName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phoneNumber">Telefon Numarası <span class="required">*</span></label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+33 7 49 11 45 48" pattern="[+]?[0-9\s\-\(\)]+" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Lokasyon <span class="required">*</span></label>
+                    <div class="location-group">
+                        <input type="text" id="location" name="location" placeholder="Google Maps linki veya adres" required>
+                        <button type="button" class="location-btn" onclick="getLocation()">Konumumu Al</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Not (Opsiyonel)</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Özel istekleriniz..."></textarea>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Beni Hatırla</label>
+                </div>
+                
+                <!-- Gizli alanlar - sepet verileri -->
+                <input type="hidden" id="cartData" name="cartData">
+                <input type="hidden" id="orderTotal" name="orderTotal">
+                
+                <div class="modal-buttons">
+                    <button type="button" class="btn-secondary" onclick="closeCheckout()">Vazgeç</button>
+                    <button type="submit" class="btn-primary">Siparişi Tamamla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Thank You Modal -->
+    <div class="thank-you" id="thankYouModal">
+        <div class="thank-you-content">
+            <div class="thank-you-icon">✓</div>
+            <h3>Teşekkürler!</h3>
+            <p>Siparişiniz başarıyla alındı. En kısa sürede sizinle iletişime geçeceğiz.</p>
+            <button class="thank-you-btn" onclick="closeThankYou()">Tamam</button>
+        </div>
+    </div>
+
+    <!-- Contact Popup -->
+    <div class="contact-popup" id="contactPopup">
+        <div class="contact-popup-content">
+            <h3>İletişim Seçenekleri</h3>
+            <div class="contact-options">
+                <a href="mailto:bonvera.food@gmail.com" class="contact-option">
+                    <div class="contact-option-info">
+                        <div class="contact-option-title">E-posta</div>
+                        <div class="contact-option-detail">bonvera.food@gmail.com</div>
+                    </div>
+                    <div class="contact-option-icon">📧</div>
+                </a>
+                <a href="https://wa.me/33749114548?text=Merhaba%20Bonvera%2C%20hizmet%20hakkında%20bilgi%20almak%20istiyorum!" class="contact-option" target="_blank">
+                    <div class="contact-option-info">
+                        <div class="contact-option-title">WhatsApp</div>
+                        <div class="contact-option-detail">Hızlı mesajlaşma</div>
+                    </div>
+                    <div class="contact-option-icon">📱</div>
+                </a>
+                <a href="https://t.me/+905457705297?text=Merhaba%20Bonvera%2C%20hizmet%20hakkında%20bilgi%20almak%20istiyorum!" class="contact-option" target="_blank">
+                    <div class="contact-option-info">
+                        <div class="contact-option-title">Telegram</div>
+                        <div class="contact-option-detail">Hızlı mesajlaşma</div>
+                    </div>
+                    <div class="contact-option-icon">✈️</div>
+                </a>
+            </div>
+            <button class="btn-secondary" onclick="closeContactPopup()" style="margin-top: 24px;">Kapat</button>
+        </div>
+    </div>
+
+    <!-- Legal Popup -->
+    <div class="legal-popup" id="legalPopup">
+        <div class="legal-popup-content">
+            <div class="legal-popup-header">
+                <h3 id="legalPopupTitle">KVKK Aydınlatma Metni</h3>
+                <button class="legal-popup-close" onclick="closeLegalPopup()">&times;</button>
+            </div>
+            <div class="legal-popup-body" id="legalPopupBody">
+                <!-- İçerik JavaScript ile yüklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Popup -->
+    <div class="order-confirmation-popup" id="orderConfirmationPopup">
+        <div class="order-confirmation-content">
+            <div class="order-confirmation-icon">🛒</div>
+            <h3>Siparişi Onaylıyor musunuz?</h3>
+            <p>Sepetinizdeki ürünlerle sipariş vermek üzeresiniz. Bu işlem geri alınamaz. Devam etmek istediğinizden emin misiniz?</p>
+            <div class="order-confirmation-buttons">
+                <button class="order-confirmation-btn order-confirmation-btn-cancel" onclick="cancelOrder()">İptal</button>
+                <button class="order-confirmation-btn order-confirmation-btn-confirm" onclick="confirmOrder()">Evet, Siparişi Onayla</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA Install Prompt -->
+    <div class="pwa-install-prompt" id="pwaInstallPrompt">
+        <div class="pwa-install-content">
+            <div class="pwa-install-text">
+                <h4>📱 Bonvera'ı Ana Ekrana Ekle</h4>
+                <p>Daha hızlı erişim için uygulamayı ana ekranınıza ekleyebilirsiniz.</p>
+            </div>
+            <div class="pwa-install-buttons">
+                <button class="pwa-install-btn pwa-install-btn-dismiss" onclick="dismissPWAInstall()">Daha Sonra</button>
+                <button class="pwa-install-btn pwa-install-btn-install" onclick="installPWA()">Ekle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-consent-content">
+            <div class="cookie-consent-text">
+                <h4>Çerezler ve Konum İzinleri</h4>
+                <p>Bu site, hizmet kalitesini artırmak için çerezler kullanır ve konum bilgisi alır. Devam ederek çerezleri ve konum izinlerini kabul etmiş olursunuz.</p>
+            </div>
+            <div class="cookie-consent-buttons">
+                <button class="cookie-btn cookie-btn-decline" onclick="declineCookies()">Reddet</button>
+                <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Kabul Et</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Veri modeli
+        const CATALOG = [
+            // Mezeler
+            {
+                id: "cacik",
+                name: "Cacık",
+                cat: "meze",
+                desc: "Yoğurt, salatalık, sarımsak ve nane ile hazırlanır.",
+                img: "Mezeler/cacık.jpg"
+            },
+            {
+                id: "ezme",
+                name: "Ezme",
+                cat: "meze",
+                desc: "Domates, biber, soğan, baharat; acılı zeytinyağlı.",
+                img: "Mezeler/Ezme.png"
+            },
+            {
+                id: "acili-humus",
+                name: "Acılı Humus",
+                cat: "meze",
+                desc: "Nohut, tahin, limon, sarımsak; acılı versiyon.",
+                img: "Mezeler/acılıhumus.jpg"
+            },
+            {
+                id: "amerikan-salatasi",
+                name: "Amerikan Salatası",
+                cat: "meze",
+                desc: "Patates, havuç, bezelye, mayonez ile hazırlanan salata.",
+                img: "Mezeler/amerikansalatası.jpg"
+            },
+            {
+                id: "barbunya-salatasi",
+                name: "Barbunya Salatası",
+                cat: "meze",
+                desc: "Barbunya fasulyesi, soğan, maydanoz, zeytinyağı.",
+                img: "Mezeler/barbunya salatası.jpg"
+            },
+            {
+                id: "domates-kurusu",
+                name: "Domates Kurusu",
+                cat: "meze",
+                desc: "Kurutulmuş domates, zeytinyağı, taze otlar.",
+                img: "Mezeler/domates kurusu.jpg"
+            },
+            {
+                id: "fava",
+                name: "Fava",
+                cat: "meze",
+                desc: "Bakla püresi, zeytinyağı, limon, taze otlar.",
+                img: "Mezeler/fava.jpg"
+            },
+            {
+                id: "grek-salatasi",
+                name: "Grek Salatası",
+                cat: "meze",
+                desc: "Domates, salatalık, zeytin, soğan, beyaz peynir.",
+                img: "Mezeler/grek salatası.jpg"
+            },
+            {
+                id: "kabak-sarmasi",
+                name: "Kabak Sarması",
+                cat: "meze",
+                desc: "Kabak yaprağı, pirinç, soğan, baharatlar.",
+                img: "Mezeler/kabak sarması.jpg"
+            },
+            {
+                id: "mantar-salatasi",
+                name: "Mantar Salatası",
+                cat: "meze",
+                desc: "Taze mantar, soğan, maydanoz, zeytinyağı.",
+                img: "Mezeler/mantar salatası.jpg"
+            },
+            {
+                id: "mor-lahana",
+                name: "Mor Lahana",
+                cat: "meze",
+                desc: "Mor lahana, havuç, maydanoz, limon suyu.",
+                img: "Mezeler/morlahana.jpg"
+            },
+            {
+                id: "muammara",
+                name: "Muammara",
+                cat: "meze",
+                desc: "Ceviz, kırmızı biber, ekmek, zeytinyağı.",
+                img: "Mezeler/muammara.jpg"
+            },
+            {
+                id: "muhteber",
+                name: "Muhteber",
+                cat: "meze",
+                desc: "Patlıcan, domates, soğan, baharatlar.",
+                img: "Mezeler/muhteber.jpg"
+            },
+            {
+                id: "pancar-salatasi",
+                name: "Pancar Salatası",
+                cat: "meze",
+                desc: "Haşlanmış pancar, ceviz, maydanoz, zeytinyağı.",
+                img: "Mezeler/pancarsalatası.jpg"
+            },
+            {
+                id: "patlican-sarmasi",
+                name: "Patlıcan Sarması",
+                cat: "meze",
+                desc: "Patlıcan yaprağı, pirinç, soğan, baharatlar.",
+                img: "Mezeler/patlıcan sarması.jpg"
+            },
+            {
+                id: "patlicanli-humus",
+                name: "Patlıcanlı Humus",
+                cat: "meze",
+                desc: "Klasik humusa köz patlıcan eklenmiş.",
+                img: "Mezeler/patlıcanlıhumus.jpg"
+            },
+            {
+                id: "saksuka",
+                name: "Şakşuka",
+                cat: "meze",
+                desc: "Patlıcan, domates, biber, soğan, yumurta.",
+                img: "Mezeler/şakşuka.jpg"
+            },
+            {
+                id: "tarator",
+                name: "Tarator",
+                cat: "meze",
+                desc: "Ceviz, ekmek, sarımsak, zeytinyağı, limon.",
+                img: "Mezeler/tarator.jpg"
+            },
+            {
+                id: "yaprak-sarmasi",
+                name: "Yaprak Sarması",
+                cat: "meze",
+                desc: "Asma yaprağı, pirinç, soğan, baharatlar.",
+                img: "Mezeler/yaprak sarması.jpg"
+            },
+            
+            // İçli Köfte
+            {
+                id: "kizarmis-icli-kofte",
+                name: "Kızarmış İçli Köfte",
+                cat: "icli",
+                desc: "Geleneksel tarifle hazırlanan kızartma içli köfte.",
+                img: "Icli-Kofte/iclikoftenormal.jpg"
+            },
+            {
+                id: "cig-icli-kofte",
+                name: "Pişmemiş İçli Köfte",
+                cat: "icli",
+                desc: "Çiğ olarak servis edilen geleneksel içli köfte.",
+                img: "Icli-Kofte/iclikofte.jpeg"
+            },
+            
+            // Sarma
+            {
+                id: "yaprak-sarma",
+                name: "Yaprak Sarma",
+                cat: "sarma",
+                desc: "Asma yaprağı, pirinç, soğan ve baharatlarla hazırlanan geleneksel sarma.",
+                img: "Sarmalar/yaprak sarması.jpg"
+            },
+            {
+                id: "kabak-sarma",
+                name: "Kabak Sarma",
+                cat: "sarma",
+                desc: "Kabak yaprağı, pirinç, soğan ve baharatlarla hazırlanan lezzetli sarma.",
+                img: "Sarmalar/kabak sarması.jpg"
+            },
+            {
+                id: "patlican-sarma",
+                name: "Patlıcan Sarma",
+                cat: "sarma",
+                desc: "Patlıcan yaprağı, pirinç, soğan ve baharatlarla hazırlanan özel sarma.",
+                img: "Sarmalar/patlıcan sarması.jpg"
+            },
+            
+        ];
+
+        // Sabitler
+        const STEP = 5;
+        const SARMA_STEP = 10;
+        const ICLI_STEP = 10;
+        const cart = new Map();
+        let currentSlideIndex = 0;
+        let slideInterval;
+
+        // DOM elementleri
+        const header = document.getElementById('header');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const mobileCartBar = document.getElementById('mobileCartBar');
+        const checkoutModal = document.getElementById('checkoutModal');
+        const thankYouModal = document.getElementById('thankYouModal');
+        const cartBadge = document.getElementById('cartBadge');
+        const mobileCartCount = document.getElementById('mobileCartCount');
+
+        // Sayfa yüklendiğinde
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCatalog();
+            updateCartDisplay();
+            prefillFromLocalStorage();
+            setCurrentYear();
+            initSlider();
+            
+            // Çerez kabul sistemini başlat
+            setTimeout(showCookieConsent, 1000); // 1 saniye sonra göster
+            
+            // Scroll eventi
+            window.addEventListener('scroll', handleScroll);
+            
+            // ESC tuşu ile modal kapatma
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeCart();
+                    closeCheckout();
+                    closeThankYou();
+                    closeContactPopup();
+                    closeLegalPopup();
+                    cancelOrder();
+                }
+            });
+            
+            // Modal dışına tıklama ile kapatma
+            checkoutModal.addEventListener('click', function(e) {
+                if (e.target === checkoutModal) {
+                    closeCheckout();
+                }
+            });
+            
+            thankYouModal.addEventListener('click', function(e) {
+                if (e.target === thankYouModal) {
+                    closeThankYou();
+                }
+            });
+            
+            // Popup dışına tıklama ile kapatma
+            document.getElementById('contactPopup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeContactPopup();
+                }
+            });
+            
+            document.getElementById('legalPopup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLegalPopup();
+                }
+            });
+            
+            // Onay popup dışına tıklama ile kapatma
+            document.getElementById('orderConfirmationPopup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    cancelOrder();
+                }
+            });
+            
+            // Form submit
+            document.getElementById('checkoutForm').addEventListener('submit', submitOrder);
+        });
+
+        // Scroll handling
+        function handleScroll() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        // Katalog render
+        function renderCatalog() {
+            const mezelerGrid = document.getElementById('mezelerGrid');
+            const icliKofteGrid = document.getElementById('icliKofteGrid');
+            const sarmaGrid = document.getElementById('sarmaGrid');
+            
+            mezelerGrid.innerHTML = '';
+            icliKofteGrid.innerHTML = '';
+            sarmaGrid.innerHTML = '';
+            
+            CATALOG.forEach(product => {
+                const productCard = createProductCard(product);
+                
+                if (product.cat === 'meze') {
+                    mezelerGrid.appendChild(productCard);
+                } else if (product.cat === 'icli') {
+                    icliKofteGrid.appendChild(productCard);
+                } else if (product.cat === 'sarma') {
+                    sarmaGrid.appendChild(productCard);
+                }
+            });
+        }
+
+        // Ürün kartı oluştur
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${product.img}" alt="${product.name}" class="product-image" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzZiNzI4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkdyw7xubGVyIGVrbGVuZWNlazwvdGV4dD48L3N2Zz4='">
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-desc">${product.desc}</p>
+                <div class="product-controls">
+                    <button class="quantity-btn" onclick="dec('${product.id}')" aria-label="Miktarı azalt">−</button>
+                    <span class="quantity-display" id="qty-${product.id}">0</span>
+                    <button class="quantity-btn" onclick="inc('${product.id}')" aria-label="Miktarı artır">+</button>
+                </div>
+            `;
+            return card;
+        }
+
+        // Debounce fonksiyonu - çift tıklamayı önler
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Miktar artır - debounced
+        const inc = debounce(function(productId) {
+            const currentQty = cart.get(productId) || 0;
+            const product = CATALOG.find(p => p.id === productId);
+            
+            let stepSize = STEP;
+            if (product) {
+                if (product.cat === 'sarma') {
+                    stepSize = currentQty === 0 ? 20 : SARMA_STEP;
+                } else if (product.cat === 'icli') {
+                    stepSize = currentQty === 0 ? 20 : ICLI_STEP;
+                }
+            }
+            
+            const newQty = currentQty + stepSize;
+            cart.set(productId, newQty);
+            updateProductDisplay(productId);
+            updateCartDisplay();
+        }, 100);
+
+        // Miktar azalt - debounced
+        const dec = debounce(function(productId) {
+            const currentQty = cart.get(productId) || 0;
+            const product = CATALOG.find(p => p.id === productId);
+            
+            let stepSize = STEP;
+            if (product) {
+                if (product.cat === 'sarma') {
+                    stepSize = currentQty <= 20 ? currentQty : SARMA_STEP;
+                } else if (product.cat === 'icli') {
+                    stepSize = currentQty <= 20 ? currentQty : ICLI_STEP;
+                }
+            }
+            
+            const newQty = Math.max(0, currentQty - stepSize);
+            
+            if (newQty === 0) {
+                cart.delete(productId);
+            } else {
+                cart.set(productId, newQty);
+            }
+            
+            updateProductDisplay(productId);
+            updateCartDisplay();
+        }, 100);
+
+        // Ürün görünümünü güncelle
+        function updateProductDisplay(productId) {
+            const qtyDisplay = document.getElementById(`qty-${productId}`);
+            if (qtyDisplay) {
+                qtyDisplay.textContent = cart.get(productId) || 0;
+            }
+        }
+
+        // Sepet görünümünü güncelle
+        function updateCartDisplay() {
+            const cartContent = document.getElementById('cartContent');
+            const cartTotals = document.getElementById('cartTotals');
+            const totalItems = Array.from(cart.values()).reduce((sum, qty) => sum + qty, 0);
+            
+            // Rozet güncelle
+            cartBadge.textContent = totalItems;
+            mobileCartCount.textContent = `(${totalItems})`;
+            
+            // Sepet boşsa
+            if (cart.size === 0) {
+                cartContent.innerHTML = `
+                    <div class="cart-empty">
+                        <h4>Sepetiniz boş</h4>
+                        <p>Lezzetli mezelerimizi keşfedin!</p>
+                        <a href="#mezeler" class="cart-empty-btn" onclick="closeCart()">Mezelere Git</a>
+            </div>
+                `;
+                cartTotals.innerHTML = '';
+                document.getElementById('checkoutBtn').disabled = true;
+                return;
+            }
+            
+            // Sepet içeriği
+            let cartHTML = '';
+            cart.forEach((qty, productId) => {
+                const product = CATALOG.find(p => p.id === productId);
+                if (product) {
+                    const categoryName = product.cat === 'meze' ? 'Meze' : 
+                                       product.cat === 'icli' ? 'İçli Köfte' : 
+                                       product.cat === 'sarma' ? 'Sarma' : 'Ev Yemeği';
+                    cartHTML += `
+                        <div class="cart-item">
+                            <div>
+                                <span class="cart-item-name">${product.name}</span>
+                                <span class="cart-item-category">${categoryName}</span>
+                    </div>
+                            <div class="cart-item-controls">
+                                <button class="quantity-btn" onclick="dec('${productId}')" aria-label="Miktarı azalt">−</button>
+                                <span class="cart-item-quantity">${qty}</span>
+                                <button class="quantity-btn" onclick="inc('${productId}')" aria-label="Miktarı artır">+</button>
+                </div>
+            </div>
+                    `;
+                }
+            });
+            cartContent.innerHTML = cartHTML;
+            
+            // Kategori toplamları
+            const totals = categoryTotals();
+            cartTotals.innerHTML = `
+                <div class="cart-total-item">
+                    <span>Toplam Meze:</span>
+                    <span>${totals.meze} adet</span>
+                    </div>
+                <div class="cart-total-item">
+                    <span>Toplam İçli Köfte:</span>
+                    <span>${totals.icli} adet</span>
+                    </div>
+                <div class="cart-total-item">
+                    <span>Toplam Sarma:</span>
+                    <span>${totals.sarma} adet</span>
+                    </div>
+                <div class="cart-total-item">
+                    <span>Genel Toplam:</span>
+                    <span>${totalItems} adet</span>
+                </div>
+            `;
+            
+            document.getElementById('checkoutBtn').disabled = false;
+        }
+
+        // Kategori toplamları
+        function categoryTotals() {
+            const totals = { meze: 0, icli: 0, sarma: 0 };
+            
+            cart.forEach((qty, productId) => {
+                const product = CATALOG.find(p => p.id === productId);
+                if (product) {
+                    totals[product.cat] += qty;
+                }
+            });
+            
+            return totals;
+        }
+
+        // Sepet aç/kapat
+        function toggleCart() {
+            cartSidebar.classList.toggle('open');
+        }
+
+        function closeCart() {
+            cartSidebar.classList.remove('open');
+        }
+
+        // Mobil menü
+        function toggleMobileMenu() {
+            document.getElementById('mobileNav').classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileNav').classList.remove('active');
+        }
+
+        // Checkout modal
+        function openCheckout() {
+            if (cart.size === 0) return;
+            updateOrderSummary();
+            checkoutModal.classList.add('open');
+            closeCart();
+        }
+
+        // Sipariş onay popup'ı
+        function showOrderConfirmation() {
+            document.getElementById('orderConfirmationPopup').classList.add('open');
+        }
+
+        function cancelOrder() {
+            document.getElementById('orderConfirmationPopup').classList.remove('open');
+        }
+
+        function confirmOrder() {
+            document.getElementById('orderConfirmationPopup').classList.remove('open');
+            // Gerçek sipariş gönderme işlemi
+            submitOrderForm();
+        }
+
+        function closeCheckout() {
+            checkoutModal.classList.remove('open');
+        }
+
+        // Sepet özetini güncelle
+        function updateOrderSummary() {
+            const orderItems = document.getElementById('orderItems');
+            const cartData = document.getElementById('cartData');
+            const orderTotal = document.getElementById('orderTotal');
+            
+            if (cart.size === 0) {
+                orderItems.innerHTML = '<p>Sepetiniz boş</p>';
+                return;
+            }
+            
+            let orderHTML = '';
+            let totalItems = 0;
+            let cartDataArray = [];
+            
+            cart.forEach((qty, productId) => {
+                const product = CATALOG.find(p => p.id === productId);
+                if (product) {
+                    const categoryName = product.cat === 'meze' ? 'Meze' : 
+                                       product.cat === 'icli' ? 'İçli Köfte' : 
+                                       product.cat === 'sarma' ? 'Sarma' : 'Ev Yemeği';
+                    
+                    orderHTML += `
+                        <div class="order-item">
+                            <div>
+                                <span class="order-item-name">${product.name}</span>
+                                <span class="order-item-category">${categoryName}</span>
+                </div>
+                            <span class="order-item-quantity">${qty} adet</span>
+                    </div>
+                    `;
+                    
+                    totalItems += qty;
+                    cartDataArray.push({
+                        id: productId,
+                        name: product.name,
+                        category: categoryName,
+                        quantity: qty
+                    });
+                }
+            });
+            
+            orderItems.innerHTML = orderHTML;
+            cartData.value = JSON.stringify(cartDataArray);
+            orderTotal.value = totalItems;
+        }
+
+        // Formspree'ye gönderilecek sepet verisini hazırla
+        function buildCartPayload() {
+            const items = [];
+            let totalItems = 0;
+            cart.forEach((qty, productId) => {
+                const product = CATALOG.find(p => p.id === productId);
+                if (!product) return;
+                const categoryName = product.cat === 'meze' ? 'Meze' : 
+                                   product.cat === 'icli' ? 'İçli Köfte' : 
+                                   product.cat === 'sarma' ? 'Sarma' : 'Diğer';
+                items.push({ id: product.id, name: product.name, category: categoryName, quantity: qty });
+                totalItems += qty;
+            });
+            return { items, totalItems, totals: categoryTotals() };
+        }
+
+        // Konum alma
+        function getLocation() {
+            // Önce çerez izni kontrol et
+            if (!hasLocationPermission()) {
+                alert('Konum bilgisi almak için önce çerezleri kabul etmelisiniz.');
+                showCookieConsent();
+                return;
+            }
+
+            if (!navigator.geolocation) {
+                alert('Tarayıcınız konum özelliğini desteklemiyor.');
+                return;
+            }
+            
+            // Mobil cihazlarda daha agresif konum alma
+            const options = {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 300000 // 5 dakika cache
+            };
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const mapsUrl = `https://maps.google.com/?q=${lat},${lng}`;
+                    document.getElementById('location').value = mapsUrl;
+                    
+                    // Konum başarıyla alındı, localStorage'a kaydet
+                    localStorage.setItem('bonvera-last-location', mapsUrl);
+                },
+                function(error) {
+                    let errorMessage = 'Konum alınamadı: ';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage += 'Konum izni reddedildi. Lütfen tarayıcı ayarlarından konum iznini açın.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage += 'Konum bilgisi mevcut değil.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage += 'Konum alma zaman aşımına uğradı.';
+                            break;
+                        default:
+                            errorMessage += 'Bilinmeyen hata.';
+                            break;
+                    }
+                    alert(errorMessage);
+                },
+                options
+            );
+        }
+
+        // LocalStorage'dan doldur
+        function prefillFromLocalStorage() {
+            const saved = localStorage.getItem('bonvera-customer-info');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    if (data.remember) {
+                        document.getElementById('companyName').value = data.firm || '';
+                        document.getElementById('location').value = data.location || '';
+                        document.getElementById('rememberMe').checked = true;
+                    }
+                } catch (e) {
+                    console.log('LocalStorage verisi okunamadı');
+                }
+            }
+            
+            // Eğer konum izni varsa ve daha önce konum alınmışsa, onu da doldur
+            if (hasLocationPermission()) {
+                const lastLocation = localStorage.getItem('bonvera-last-location');
+                if (lastLocation && !document.getElementById('location').value) {
+                    document.getElementById('location').value = lastLocation;
+                }
+            }
+        }
+
+        // Sipariş gönder - form submit
+        function submitOrder(e) {
+            e.preventDefault();
+            
+            const companyName = document.getElementById('companyName').value.trim();
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const location = document.getElementById('location').value.trim();
+            
+            if (!companyName || !phoneNumber || !location) {
+                alert('Firma Adı, Telefon Numarası ve Lokasyon alanları zorunludur.');
+                return;
+            }
+            
+            // Telefon numarası validasyonu
+            const phonePattern = /^[+]?[0-9\s\-\(\)]{10,}$/;
+            if (!phonePattern.test(phoneNumber)) {
+                alert('Lütfen geçerli bir telefon numarası girin.');
+                return;
+            }
+            
+            // Onay popup'ını göster
+            showOrderConfirmation();
+        }
+
+        // Gerçek sipariş gönderme işlemi
+        function submitOrderForm() {
+            const companyName = document.getElementById('companyName').value.trim();
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const location = document.getElementById('location').value.trim();
+            const remember = document.getElementById('rememberMe').checked;
+            const notes = document.getElementById('notes').value.trim();
+            
+            // LocalStorage'a kaydet
+            if (remember) {
+                const data = {
+                    firm: companyName,
+                    location: location,
+                    remember: true
+                };
+                localStorage.setItem('bonvera-customer-info', JSON.stringify(data));
+            } else {
+                localStorage.removeItem('bonvera-customer-info');
+            }
+
+            // Formspree'ye arka planda gönder
+            const formEndpoint = document.getElementById('checkoutForm').getAttribute('action') || 'https://formspree.io/f/xblzzywb';
+            const cartPayload = buildCartPayload();
+
+            fetch(formEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    companyName,
+                    phoneNumber,
+                    location,
+                    notes,
+                    remember,
+                    cart: cartPayload.items,
+                    totals: cartPayload.totals,
+                    orderTotal: cartPayload.totalItems
+                })
+            }).then(res => {
+                // Başarı/başarısızlıkta Formspree sayfasına gitmeden aynı akış
+                closeCheckout();
+                showThankYou();
+                cart.clear();
+                updateCartDisplay();
+                renderCatalog();
+            }).catch(() => {
+                // Hata da olsa kullanıcı akışını bozmayalım
+                closeCheckout();
+                showThankYou();
+                cart.clear();
+                updateCartDisplay();
+                renderCatalog();
+            });
+        }
+
+        // Teşekkür modalı
+        function showThankYou() {
+            thankYouModal.classList.add('open');
+        }
+
+        function closeThankYou() {
+            thankYouModal.classList.remove('open');
+        }
+
+        // Yıl güncelle
+        function setCurrentYear() {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        }
+
+        // Slider fonksiyonları
+        function initSlider() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            if (slides.length === 0) return;
+            
+            // Otomatik slider başlat
+            slideInterval = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                showSlide(currentSlideIndex);
+            }, 5000); // 5 saniye // 2 saniye
+            
+            // Touch desteği
+            let startX = 0;
+            let endX = 0;
+            
+            const sliderContainer = document.querySelector('.slider-container');
+            if (sliderContainer) {
+                sliderContainer.addEventListener('touchstart', function(e) {
+                    startX = e.touches[0].clientX;
+                });
+                
+                sliderContainer.addEventListener('touchend', function(e) {
+                    endX = e.changedTouches[0].clientX;
+                    handleSwipe();
+                });
+            }
+            
+            function handleSwipe() {
+                const threshold = 50;
+                const diff = startX - endX;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        // Sola kaydırma - sonraki slide
+                        changeSlide(1);
+                    } else {
+                        // Sağa kaydırma - önceki slide
+                        changeSlide(-1);
+                    }
+                }
+            }
+        }
+        
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            // Tüm slide'ları gizle
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Seçilen slide'ı göster
+            if (slides[index]) {
+                slides[index].classList.add('active');
+            }
+            if (dots[index]) {
+                dots[index].classList.add('active');
+            }
+        }
+        
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.slide');
+            currentSlideIndex += direction;
+            
+            if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex < 0) {
+                currentSlideIndex = slides.length - 1;
+            }
+            
+            showSlide(currentSlideIndex);
+            
+            // Otomatik slider'ı yeniden başlat
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                showSlide(currentSlideIndex);
+            }, 5000); // 5 saniye
+        }
+        
+        function currentSlide(index) {
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+            
+            // Otomatik slider'ı yeniden başlat
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % document.querySelectorAll('.slide').length;
+                showSlide(currentSlideIndex);
+            }, 5000); // 5 saniye
+        }
+
+        // Çerez yönetimi
+        function showCookieConsent() {
+            const consent = localStorage.getItem('bonvera-cookie-consent');
+            if (!consent) {
+                document.getElementById('cookieConsent').classList.add('show');
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('bonvera-cookie-consent', 'accepted');
+            localStorage.setItem('bonvera-location-permission', 'granted');
+            document.getElementById('cookieConsent').classList.remove('show');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('bonvera-cookie-consent', 'declined');
+            localStorage.setItem('bonvera-location-permission', 'denied');
+            document.getElementById('cookieConsent').classList.remove('show');
+        }
+
+        function hasLocationPermission() {
+            const consent = localStorage.getItem('bonvera-cookie-consent');
+            const locationPermission = localStorage.getItem('bonvera-location-permission');
+            return consent === 'accepted' && locationPermission === 'granted';
+        }
+
+        // Popup fonksiyonları
+        function openContactPopup() {
+            document.getElementById('contactPopup').classList.add('open');
+        }
+
+        function closeContactPopup() {
+            document.getElementById('contactPopup').classList.remove('open');
+        }
+
+        function openLegalPopup(type) {
+            const popup = document.getElementById('legalPopup');
+            const title = document.getElementById('legalPopupTitle');
+            const body = document.getElementById('legalPopupBody');
+            
+            if (type === 'kvkk') {
+                title.textContent = 'KVKK Aydınlatma Metni';
+                body.innerHTML = `
+                    <p><strong>Veri Sorumlusu:</strong> Bonvera</p>
+                    <p><strong>Adres:</strong> Strasbourg, France — <strong>E-posta:</strong> bonvera.food@gmail.com</p>
+                    
+                    <h2>1. Kapsam ve Amaç</h2>
+                    <p>Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca,
+                    <em>bonvera.food</em> web sitesi ve yalnızca anlaşmalı restoran/iş ortaklarımıza kapalı sipariş akışımız
+                    kapsamında kişisel verilerin işlenmesine ilişkin bilgilendirme amacıyla hazırlanmıştır.</p>
+
+                    <h2>2. İşlenen Kişisel Veri Kategorileri</h2>
+                    <ul>
+                      <li><strong>Temel sipariş verileri:</strong> Firma adı, şube adı (opsiyon), teslimat/Lokasyon linki, sipariş notu.</li>
+                      <li><strong>Teknik veriler:</strong> IP, tarayıcı bilgisi, çerez/yerel depolama verileri (site performansı ve tercihlerin hatırlanması amaçlı).</li>
+                      <li><strong>İşlem bilgisi:</strong> Sepet içeriği, sipariş özeti, zaman damgaları.</li>
+                    </ul>
+
+                    <h2>3. Veri İşleme Amaçları ve Hukuki Sebepler</h2>
+                    <ul>
+                      <li><strong>Sözleşmenin kurulması/ifası</strong> (KVKK m.5/2-c): Sipariş talebinizi ilgili iş ortaklarına iletmek, operasyonel iletişimi yürütmek.</li>
+                      <li><strong>Meşru menfaat</strong> (m.5/2-f): Site güvenliği, suistimal önleme, performans ölçümü ve hizmet geliştirme.</li>
+                      <li><strong>Hukuki yükümlülük</strong> (m.5/2-ç): Muhasebe ve mevzuat kaynaklı kayıt tutma.</li>
+                    </ul>
+
+                    <h2>4. KVKK m.11 Kapsamındaki Haklarınız</h2>
+                    <p>Bonvera'ya başvurarak; verilerinizin işlenip işlenmediğini öğrenme, işleme amacını ve uygun kullanımı,
+                    yurt içi/dışı aktarım yapılan üçüncü kişileri, verilerin düzeltilmesini/silinmesini talep etme, itiraz etme ve
+                    zararın giderilmesini isteme haklarına sahipsiniz.</p>
+
+                    <h2>5. Başvuru</h2>
+                    <p>KVKK kapsamındaki talepleriniz için <a href="mailto:bonvera.food@gmail.com">bonvera.food@gmail.com</a> adresine
+                    "KVKK Başvuru" konu başlığıyla iletebilirsiniz. Başvurularınız en geç 30 gün içinde sonuçlandırılır.</p>
+                `;
+            } else if (type === 'gizlilik') {
+                title.textContent = 'Gizlilik & Çerez Politikası';
+                body.innerHTML = `
+                    <h2>1. Gizlilik İlkesi</h2>
+                    <p>Bonvera olarak, yalnızca hizmeti sunmak için gerekli asgari veriyi işler, verileri yetkisiz erişime karşı
+                    uygun idari ve teknik tedbirlerle koruruz. Pilot yapımız gereği site, sadece anlaşmalı restoran/iş ortaklarına açıktır.</p>
+
+                    <h2>2. Toplanan Veriler ve Kullanım</h2>
+                    <ul>
+                      <li><strong>Sipariş Verileri:</strong> Firma adı, şube, lokasyon bağlantısı, sipariş içeriği/notu.</li>
+                      <li><strong>Teknik Veriler:</strong> IP, cihaz/tarayıcı bilgisi, hata günlükleri.</li>
+                      <li><strong>Tercih Verileri:</strong> "Beni hatırla" seçimiyle cihazınızdaki yerel depolama.</li>
+                    </ul>
+
+                    <h2>3. Çerezler ve Benzer Teknolojiler</h2>
+                    <p>Site temel işlevler için zorunlu çerezler kullanabilir (oturum yönetimi, güvenlik, yük dengeleme). 
+                    İstatistik/analitik çerezleri yalnızca onay vermeniz halinde etkinleştiririz.</p>
+
+                    <h2>4. Veri Güvenliği</h2>
+                    <p>İletişim katmanında TLS/HTTPS, erişim yetkilendirmesi, minimum ayrıcalık prensibi ve loglama uygulanır.</p>
+
+                    <h2>5. Haklar ve İletişim</h2>
+                    <p>KVKK m.11 kapsamındaki haklarınız için 
+                      <a href="mailto:bonvera.food@gmail.com">bonvera.food@gmail.com</a> üzerinden bize ulaşabilirsiniz.</p>
+                `;
+            }
+            
+            popup.classList.add('open');
+        }
+
+        function closeLegalPopup() {
+            document.getElementById('legalPopup').classList.remove('open');
+        }
+
+        // Logo tıklama - sayfanın üstüne git
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        let pwaInstallPromptShown = false;
+
+        function showPWAInstallPrompt() {
+            if (pwaInstallPromptShown) return;
+            
+            const dismissed = localStorage.getItem('bonvera-pwa-install-dismissed');
+            if (dismissed) return;
+            
+            setTimeout(() => {
+                const prompt = document.getElementById('pwaInstallPrompt');
+                if (prompt) {
+                    // iOS için özel mesaj
+                    if (isInWebAppiOS) {
+                        const content = prompt.querySelector('.pwa-install-content');
+                        if (content) {
+                            content.innerHTML = `
+                                <div class="pwa-install-icon">📱</div>
+                                <div class="pwa-install-text">
+                                    <h3>Bonvera'yı Ana Ekrana Ekle</h3>
+                                    <p>Safari'de paylaş butonuna (⬆️) dokunun ve "Ana Ekrana Ekle" seçeneğini seçin.</p>
+                                </div>
+                            `;
+                        }
+                    }
+                    prompt.classList.add('show');
+                }
+                pwaInstallPromptShown = true;
+            }, 5000); // 5 saniye sonra göster
+        }
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('PWA kurulumu kabul edildi');
+                    } else {
+                        console.log('PWA kurulumu reddedildi');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+            dismissPWAInstall();
+        }
+
+        function dismissPWAInstall() {
+            document.getElementById('pwaInstallPrompt').classList.remove('show');
+            localStorage.setItem('bonvera-pwa-install-dismissed', 'true');
+        }
+
+        // iOS PWA Detection
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+        const isInWebAppiOS = isIOS && !isInStandaloneMode;
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // iOS PWA Install Prompt
+        if (isInWebAppiOS) {
+            // iOS için özel install prompt göster
+            setTimeout(() => {
+                showPWAInstallPrompt();
+            }, 3000);
+        }
+
+        // Slide İçeriklerini Dosya Adına Göre Güncelle
+        function updateSlideContent() {
+            const slideData = {
+                'slide1.jpeg': {
+                    title: 'Taze Cacık',
+                    desc: 'Yoğurt, salatalık, sarımsak ve nane ile hazırlanan geleneksel cacığımız. Serinletici ve ferahlatıcı lezzet.',
+                    category: 'mezeler',
+                    buttonText: 'Mezeler'
+                },
+                'slide2.jpeg': {
+                    title: 'Acılı Ezme',
+                    desc: 'Domates, biber, soğan ve baharatlarla hazırlanan acılı ezmemiz. Geleneksel tarifimizle hazırlanan özel lezzet.',
+                    category: 'mezeler',
+                    buttonText: 'Mezeler'
+                },
+                'slide3.jpeg': {
+                    title: 'Acılı Humus',
+                    desc: 'Nohut, tahin, limon ve sarımsakla hazırlanan acılı humusumuz. Kremamsı kıvamda, baharatlı lezzet.',
+                    category: 'mezeler',
+                    buttonText: 'Mezeler'
+                }
+            };
+
+            // Slide içeriklerini güncelle
+            Object.keys(slideData).forEach((filename, index) => {
+                const slideIndex = index + 1;
+                const data = slideData[filename];
+                
+                const titleEl = document.getElementById(`slide${slideIndex}-title`);
+                const descEl = document.getElementById(`slide${slideIndex}-desc`);
+                const btnEl = document.getElementById(`slide${slideIndex}-btn`);
+                
+                if (titleEl) titleEl.textContent = data.title;
+                if (descEl) descEl.textContent = data.desc;
+                if (btnEl) {
+                    btnEl.textContent = data.buttonText;
+                    btnEl.href = `#${data.category}`;
+                }
+            });
+        }
+
+        // Sayfa yüklendiğinde slide içeriklerini güncelle
+        document.addEventListener('DOMContentLoaded', updateSlideContent);
+
+        // PWA Install Event Listener
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            showPWAInstallPrompt();
+        });
+
+        // PWA Installed Event
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('PWA kuruldu');
+            dismissPWAInstall();
+        });
+
+        // Yorum: İleride admin paneli için CATALOG'u dış JSON'dan çekmek için:
+        // async function loadCatalog() {
+        //     try {
+        //         const response = await fetch('/api/catalog.json');
+        //         return await response.json();
+        //     } catch (error) {
+        //         console.error('Katalog yüklenemedi:', error);
+        //         return CATALOG; // Fallback
+        //     }
+        // }
+
+        // HTTPS Güvenlik Optimizasyonu
+        (function() {
+            // HTTP'den HTTPS'e yönlendirme
+            if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+                location.replace('https:' + window.location.href.substring(window.location.protocol.length));
+            }
+            
+            // Mixed Content Kontrolü
+            if (location.protocol === 'https:') {
+                const images = document.querySelectorAll('img[src^="http:"]');
+                images.forEach(img => {
+                    img.src = img.src.replace('http:', 'https:');
+                });
+                
+                const links = document.querySelectorAll('a[href^="http:"]');
+                links.forEach(link => {
+                    link.href = link.href.replace('http:', 'https:');
+                });
+            }
+        })();
+
+        // Resim Yükleme Optimizasyonu
+        (function() {
+            // Resim yükleme hatalarını yakala ve fallback ekle
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.warn('Resim yüklenemedi:', this.src);
+                    // Fallback resim ekle (logo kullan)
+                    this.src = 'logo.png';
+                    this.alt = 'Resim yüklenemedi';
+                });
+                
+                // Lazy loading için intersection observer
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const img = entry.target;
+                                if (img.dataset.src) {
+                                    img.src = img.dataset.src;
+                                    img.removeAttribute('data-src');
+                                    observer.unobserve(img);
+                                }
+                            }
+                        });
+                    });
+                    
+                    if (img.dataset.src) {
+                        observer.observe(img);
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{
+  "name": "Bonvera - Lezzetli Mezeler ve Ev Yemekleri",
+  "short_name": "Bonvera",
+  "description": "Taze, lezzetli mezeler, içli köfte ve ev yemekleri. Günlük hazırlık, kaliteli malzeme, usta işi lezzet.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1f4d8f",
+  "theme_color": "#1f4d8f",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "scope": "/",
+  "lang": "tr",
+  "dir": "ltr",
+  "categories": ["food", "restaurant", "shopping"],
+  "icons": [
+    {
+      "src": "pwklogo.jpg",
+      "sizes": "72x72",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "pwklogo.jpg",
+      "sizes": "96x96",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "pwklogo.jpg",
+      "sizes": "128x128",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "pwklogo.jpg",
+      "sizes": "144x144",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "pwklogo.jpg",
+      "sizes": "152x152",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "pwklogo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "pwklogo.jpg",
+      "sizes": "384x384",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "pwklogo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "slide/slide1.jpeg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mezeler",
+      "short_name": "Mezeler",
+      "description": "Lezzetli mezelerimizi görüntüle",
+      "url": "/#mezeler",
+      "icons": [
+        {
+          "src": "pwklogo.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "İçli Köfte",
+      "short_name": "İçli Köfte",
+      "description": "İçli köfte çeşitlerimizi görüntüle",
+      "url": "/#icli-kofte",
+      "icons": [
+        {
+          "src": "pwklogo.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Sarma",
+      "short_name": "Sarma",
+      "description": "Sarma çeşitlerimizi görüntüle",
+      "url": "/#sarma",
+      "icons": [
+        {
+          "src": "pwklogo.jpg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
