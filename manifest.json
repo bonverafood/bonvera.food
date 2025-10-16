@@ -64,9 +64,9 @@
   ],
   "screenshots": [
     {
-      "src": "slide/slide1.jpeg",
+      "src": "slide/Ezme.png",
       "sizes": "1280x720",
-      "type": "image/jpeg",
+      "type": "image/png",
       "form_factor": "wide"
     }
   ],
