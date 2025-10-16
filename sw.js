@@ -11,7 +11,8 @@ const urlsToCache = [
   '/slide/slide3.jpeg',
   '/tabak/tabak.jpg',
   '/tabak/bonvera_tabak.png',
-  '/Icli-Kofte/',
+  '/Icli-Kofte/iclikofte.jpg',
+  '/Icli-Kofte/kizarmamisiclikofte.jpg',
   '/Sarmalar/',
   '/Mezeler/',
   '/Meze/'
