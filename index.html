@@ -2,14 +2,14 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Bonvera - Lezzetli Mezeler ve Yemekler</title>
     <meta name="description" content="Bonvera - Taze, lezzetli mezeler, içli köfte ve Sarmalar. Günlük hazırlık, kaliteli malzeme, usta işi lezzet.">
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#1f4d8f">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Bonvera">
     <meta name="msapplication-TileColor" content="#1f4d8f">
     <meta name="msapplication-tap-highlight" content="no">
@@ -82,6 +82,11 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            /* iPhone notch support */
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .container {
@@ -100,6 +105,10 @@
             transition: box-shadow 0.3s ease;
             overflow: visible; /* Logo taşabilir */
             padding: 16px 0; /* Global standart boyut */
+            /* iPhone notch support */
+            padding-top: max(16px, env(safe-area-inset-top));
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
         }
 
         .header.scrolled {
@@ -112,6 +121,9 @@
             justify-content: space-between;
             padding: 16px 20px; /* Global standart boyut */
             overflow: visible; /* Logo taşabilir */
+            /* iPhone notch support - remove top padding since header already handles it */
+            padding-top: 16px;
+            padding-bottom: 16px;
         }
 
         .nav-left {
@@ -233,6 +245,9 @@
             background: var(--white);
             border-top: 1px solid var(--border-gray);
             padding: 16px 20px;
+            /* iPhone notch support */
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
         }
 
         .mobile-nav.active {
@@ -529,6 +544,9 @@
             z-index: 200;
             display: flex;
             flex-direction: column;
+            /* iPhone notch support */
+            padding-top: env(safe-area-inset-top);
+            padding-right: env(safe-area-inset-right);
         }
 
         .cart-sidebar.open {
@@ -684,6 +702,10 @@
             color: var(--white);
             padding: 16px 20px;
             z-index: 150;
+            /* iPhone notch support */
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
         }
 
         .mobile-cart-bar-content {
@@ -720,6 +742,11 @@
             align-items: center;
             justify-content: center;
             z-index: 300;
+            /* iPhone notch support */
+            padding-top: env(safe-area-inset-top);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .modal-overlay.open {
@@ -1258,19 +1285,52 @@
                 -webkit-user-select: none;
                 -webkit-tap-highlight-color: transparent;
                 -webkit-overflow-scrolling: touch;
+                /* Remove body padding for iPhone since header handles it */
+                padding-top: 0;
+                padding-left: 0;
+                padding-right: 0;
+                padding-bottom: 0;
             }
             
-            /* iOS Safe Area */
+            /* iOS Safe Area - Remove duplicate padding since we handle it in main elements */
             .hero, .container {
-                padding-left: env(safe-area-inset-left);
-                padding-right: env(safe-area-inset-right);
+                padding-left: 0;
+                padding-right: 0;
             }
             
-            /* iOS Status Bar */
+            /* iOS Status Bar - Remove duplicate padding */
             .hero {
-                padding-top: env(safe-area-inset-top);
+                padding-top: 0;
+            }
+            
+            /* iPhone specific optimizations */
+            @supports (padding: max(0px)) {
+                .header {
+                    padding-top: max(16px, env(safe-area-inset-top));
+                    padding-left: max(20px, env(safe-area-inset-left));
+                    padding-right: max(20px, env(safe-area-inset-right));
+                }
+                
+                .mobile-cart-bar {
+                    padding-bottom: max(16px, env(safe-area-inset-bottom));
+                    padding-left: max(20px, env(safe-area-inset-left));
+                    padding-right: max(20px, env(safe-area-inset-right));
+                }
+                
+                .modal-overlay {
+                    padding-top: env(safe-area-inset-top);
+                    padding-left: env(safe-area-inset-left);
+                    padding-right: env(safe-area-inset-right);
+                    padding-bottom: env(safe-area-inset-bottom);
+                }
+                
+                .cart-sidebar {
+                    padding-top: env(safe-area-inset-top);
+                    padding-right: env(safe-area-inset-right);
+                }
             }
         }
+
         
         /* PWA Install Prompt */
         .pwa-install-prompt {
@@ -1873,8 +1933,6 @@
         <img src="slide/Ezme.png" alt="Taze malzemelerle hazırlanan mezeler" loading="lazy">
         <div class="slide-content">
           <h1 id="slide1-title">Taze Cacık</h1>
-          <p id="slide1-desc">Yoğurt, salatalık, sarımsak ve nane ile hazırlanan geleneksel cacığımız. Serinletici ve ferahlatıcı lezzet.</p>
-          <a href="#mezeler" class="hero-btn" id="slide1-btn">Mezeler</a>
         </div>
       </div>
 
@@ -1883,8 +1941,6 @@
         <img src="slide/iclikofte.jpg" alt="Geleneksel tariflerle hazırlanan yemekler" loading="lazy">
         <div class="slide-content">
           <h1 id="slide2-title">Acılı Ezme</h1>
-          <p id="slide2-desc">Domates, biber, soğan ve baharatlarla hazırlanan acılı ezmemiz. Geleneksel tarifimizle hazırlanan özel lezzet.</p>
-          <a href="#mezeler" class="hero-btn" id="slide2-btn">Mezeler</a>
         </div>
       </div>
 
@@ -1893,8 +1949,6 @@
         <img src="slide/yaprak sarması.jpg" alt="İçli köfte ve özel lezzetler" loading="lazy">
         <div class="slide-content">
           <h1 id="slide3-title">Acılı Humus</h1>
-          <p id="slide3-desc">Nohut, tahin, limon ve sarımsakla hazırlanan acılı humusumuz. Kremamsı kıvamda, baharatlı lezzet.</p>
-          <a href="#mezeler" class="hero-btn" id="slide3-btn">Mezeler</a>
         </div>
       </div>
 
@@ -2083,10 +2137,6 @@
                     <input type="text" id="companyName" name="companyName" required>
                 </div>
                 
-                <div class="form-group">
-                    <label for="phoneNumber">Telefon Numarası <span class="required">*</span></label>
-                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+33 7 49 11 45 48" pattern="[+]?[0-9\s\-\(\)]+" required>
-                </div>
                 
                 <div class="form-group">
                     <label for="location">Lokasyon <span class="required">*</span></label>
@@ -2184,6 +2234,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- PWA Install Prompt -->
     <div class="pwa-install-prompt" id="pwaInstallPrompt">
@@ -2845,18 +2896,10 @@
             e.preventDefault();
             
             const companyName = document.getElementById('companyName').value.trim();
-            const phoneNumber = document.getElementById('phoneNumber').value.trim();
             const location = document.getElementById('location').value.trim();
             
-            if (!companyName || !phoneNumber || !location) {
-                alert('Firma Adı, Telefon Numarası ve Lokasyon alanları zorunludur.');
-                return;
-            }
-            
-            // Telefon numarası validasyonu
-            const phonePattern = /^[+]?[0-9\s\-\(\)]{10,}$/;
-            if (!phonePattern.test(phoneNumber)) {
-                alert('Lütfen geçerli bir telefon numarası girin.');
+            if (!companyName || !location) {
+                alert('Firma Adı ve Lokasyon alanları zorunludur.');
                 return;
             }
             
@@ -2867,7 +2910,6 @@
         // Gerçek sipariş gönderme işlemi
         function submitOrderForm() {
             const companyName = document.getElementById('companyName').value.trim();
-            const phoneNumber = document.getElementById('phoneNumber').value.trim();
             const location = document.getElementById('location').value.trim();
             const remember = document.getElementById('rememberMe').checked;
             const notes = document.getElementById('notes').value.trim();
@@ -2896,7 +2938,6 @@
                 },
                 body: JSON.stringify({
                     companyName,
-                    phoneNumber,
                     location,
                     notes,
                     remember,
@@ -3266,6 +3307,7 @@
 
         // Sayfa yüklendiğinde slide içeriklerini güncelle
         document.addEventListener('DOMContentLoaded', updateSlideContent);
+
 
         // PWA Install Event Listener
         window.addEventListener('beforeinstallprompt', (e) => {

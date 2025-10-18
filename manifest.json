@@ -7,6 +7,7 @@
   "background_color": "#1f4d8f",
   "theme_color": "#1f4d8f",
   "orientation": "portrait-primary",
+  "display_override": ["window-controls-overlay", "standalone"],
   "prefer_related_applications": false,
   "scope": "/",
   "lang": "tr",
